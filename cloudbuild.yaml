@@ -14,7 +14,7 @@ steps:
   args:
     - 'exec'
     - '-t'
-    - 'app'
+    - 'php'
     - 'composer'
     - 'install'
 
@@ -33,7 +33,7 @@ steps:
   args:
     - 'exec'
     - '-t'
-    - 'app'
+    - 'php'
     - 'php'
     - '/var/www/artesan'
     - 'key:generate'
