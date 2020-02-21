@@ -387,7 +387,9 @@ Route::get('/teste2', function () {
     }
 
     //$quantidadePontos=15; //pontos (4R)
-    $quantidadePontos = 50; //pontos (11R)
+    //$quantidadePontos=20; //pontos (5R)
+    $quantidadePontos = 45; //pontos (10R)
+    //$quantidadePontos = 50; //pontos (11R)
     //$quantidadePontos=80; //pontos (17R)
     //$quantidadePontos=100; //pontos (21R)
     //$quantidadePontos=120; //pontos (25R)
@@ -399,7 +401,9 @@ Route::get('/teste2', function () {
     $contratos = 1;
     $pontos = $contratos * $tick;
     //$arquivo = file(storage_path('app/4R.csv'));
-    $arquivo = file(storage_path('app/11R.csv'));
+    //$arquivo = file(storage_path('app/5R.csv'));
+    $arquivo = file(storage_path('app/10R.csv'));
+    //$arquivo = file(storage_path('app/11R.csv'));
     //$arquivo = file(storage_path('app/17R.csv'));
     //$arquivo = file(storage_path('app/21R.csv'));
     //$arquivo = file(storage_path('app/25R.csv'));
@@ -468,20 +472,20 @@ Route::get('/teste2', function () {
                 if (vaiSubir($trecho) && !$POSICAO_ABERTA) {
                     $quantidadePivoAlta++;
                     $quantidadePivoAlta_TOTAL++;
-                    echo "(index $index): iniciou pivô de alta no bloco " . ($index + 1) . " em $momento<br>";
+                    //echo "(index $index): iniciou pivô de alta no bloco " . ($index + 1) . " em $momento<br>";
 
                     if (!$POSICAO_ABERTA) {
                         $POSICAO_ABERTA = true;// entra na compra
                         $COMPRADO = TRUE;
                         $stopAtual = $trecho[2][4]; // fechamento do candle anterior
                     }
-                    echo "------------------------------------------------------------------------------------------------<br><br>";
+                    //echo "------------------------------------------------------------------------------------------------<br><br>";
                     continue;
                 }
                 // Stop uma venda
                 if (deAlta($partes) && $POSICAO_ABERTA && $VENDIDO) {
                     $totalDePontos -= $quantidadePontos;
-                    echo "(index $index): movimento <b>contra na venda</b> no bloco" . ($index + 1) . " em $momento. Fui stopado em $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
+                    //echo "(index $index): movimento <b>contra na venda</b> no bloco" . ($index + 1) . " em $momento. Fui stopado em $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
                     $stopAtual = 0; // abertura do candle anterior
                     $POSICAO_ABERTA = FALSE;
                     $VENDIDO = FALSE;
@@ -490,17 +494,17 @@ Route::get('/teste2', function () {
                     if (vaiSubir($trecho) && !$POSICAO_ABERTA) {
                         $quantidadePivoAlta++;
                         $quantidadePivoAlta_TOTAL++;
-                        echo "(index $index): iniciou pivô de alta no bloco " . ($index + 1) . " em $momento<br>";
+                        //echo "(index $index): iniciou pivô de alta no bloco " . ($index + 1) . " em $momento<br>";
 
                         if (!$POSICAO_ABERTA) {
                             $POSICAO_ABERTA = true;// entra na compra
                             $COMPRADO = TRUE;
                             $stopAtual = $trecho[2][4]; // fechamento do candle anterior
                         }
-                        echo "------------------------------------------------------------------------------------------------<br><br>";
+                        //echo "------------------------------------------------------------------------------------------------<br><br>";
                         continue;
                     }
-                    echo "------------------------------------------------------------------------------------------------<br><br>";
+                    //echo "------------------------------------------------------------------------------------------------<br><br>";
                     continue;
 
                 }
@@ -509,8 +513,8 @@ Route::get('/teste2', function () {
                     $totalDePontos += $quantidadePontos;
                     $stopAtual = $trecho[2][1]; // abertura do candle anterior
 
-                    echo "(index $index): movimento a favor da compra no bloco" . ($index + 1) . " em $momento. O stop agora é $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
-                    echo "------------------------------------------------------------------------------------------------<br><br>";
+                    //echo "(index $index): movimento a favor da compra no bloco" . ($index + 1) . " em $momento. O stop agora é $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
+                    //echo "------------------------------------------------------------------------------------------------<br><br>";
                     continue;
 
                 }
@@ -520,8 +524,8 @@ Route::get('/teste2', function () {
                 if (vaiCair($trecho) && !$POSICAO_ABERTA) {
                     $quantidadePivoBaixa++;
                     $quantidadePivoBaixa_TOTAL++;
-                    echo "(index $index): iniciou pivô de baixa no bloco " . ($index + 1) . " em $momento<br>";
-                    echo "------------------------------------------------------------------------------------------------<br><br>";
+                    //echo "(index $index): iniciou pivô de baixa no bloco " . ($index + 1) . " em $momento<br>";
+                    //echo "------------------------------------------------------------------------------------------------<br><br>";
                     if (!$POSICAO_ABERTA) {
                         $POSICAO_ABERTA = true;// entra na venda
                         $VENDIDO = TRUE;
@@ -534,7 +538,7 @@ Route::get('/teste2', function () {
                     $totalDePontos -= $quantidadePontos;
                     //$quantidadePivoBaixa++;
                     //$quantidadePivoBaixa_TOTAL++;
-                    echo "(index $index): movimento <b>contra na compra</b> no bloco" . ($index + 1) . " em $momento. Fui stopado em $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
+                    //echo "(index $index): movimento <b>contra na compra</b> no bloco" . ($index + 1) . " em $momento. Fui stopado em $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
                     $stopAtual = 0; // abertura do candle anterior
                     $POSICAO_ABERTA = FALSE;
                     $COMPRADO = FALSE;
@@ -543,8 +547,8 @@ Route::get('/teste2', function () {
                     if (vaiCair($trecho) && !$POSICAO_ABERTA) {
                         $quantidadePivoBaixa++;
                         $quantidadePivoBaixa_TOTAL++;
-                        echo "(index $index): iniciou pivô de baixa no bloco " . ($index + 1) . " em $momento<br>";
-                        echo "------------------------------------------------------------------------------------------------<br><br>";
+                        //echo "(index $index): iniciou pivô de baixa no bloco " . ($index + 1) . " em $momento<br>";
+                        //echo "------------------------------------------------------------------------------------------------<br><br>";
                         if (!$POSICAO_ABERTA) {
                             $POSICAO_ABERTA = true;// entra na compra
                             $VENDIDO = TRUE;
@@ -552,7 +556,7 @@ Route::get('/teste2', function () {
                         }
                         continue;
                     }
-                    echo "------------------------------------------------------------------------------------------------<br><br>";
+                    //echo "------------------------------------------------------------------------------------------------<br><br>";
                     continue;
                 }
 
@@ -561,8 +565,8 @@ Route::get('/teste2', function () {
                     $totalDePontos += $quantidadePontos;
                     $stopAtual = $trecho[2][1]; // abertura do candle anterior
 
-                    echo "(index $index): movimento a favor da venda no bloco" . ($index + 1) . " em $momento. O stop agora é $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
-                    echo "------------------------------------------------------------------------------------------------<br><br>";
+                    //echo "(index $index): movimento a favor da venda no bloco" . ($index + 1) . " em $momento. O stop agora é $stopAtual (total de $totalDePontos ou R$ " . number_format($totalDePontos * $pontos, 2, ',', '.') . ")<br>";
+                    //echo "------------------------------------------------------------------------------------------------<br><br>";
                     continue;
                 }
 
