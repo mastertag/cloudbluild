@@ -39,7 +39,7 @@ services:
 
   app:
     build: .docker/nginx
-    container_name: server
+    container_name: app
     restart: always
     tty: true
     ports:

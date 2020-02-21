@@ -17,7 +17,7 @@ steps:
     - 'app'
     - 'composer'
     - 'install'
-    -
+
 - id: "Copiando .env"
   name: "gcr.io/cloud-builders/docker"
   args:
@@ -27,3 +27,13 @@ steps:
     - 'cp'
     - '.env.example'
     - '.env'
+
+- id: "Rodando key:generate"
+  name: "gcr.io/cloud-builders/docker"
+  args:
+    - 'exec'
+    - '-t'
+    - 'app'
+    - 'php'
+    - '/var/www/artesan'
+    - 'key:generate'
