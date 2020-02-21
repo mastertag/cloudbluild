@@ -1,0 +1,64 @@
+version: '2.3'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    command:  --innodb-use-native-aio=0
+    container_name: mysql
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - .docker/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=mira
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+    networks:
+      - minha-rede
+    healthcheck:
+      test: ["CMD-SHELL",'mysql -uroot -proot --execute="show databases"']
+      interval: 10s
+      timeout: 10s
+      retries: 4
+
+  php:
+    build: .docker/php
+    container_name: php
+    restart: always
+    tty: true
+    volumes:
+      - ./:/var/www/
+    networks:
+      - minha-rede
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  web:
+    build: .docker/nginx
+    container_name: server
+    restart: always
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./app/:/var/www/
+    networks:
+      - minha-rede
+
+
+#  redis:
+#    container_name: redis
+#    image: redis:alpine
+#    expose:
+#      - 6379
+
+
+
+#Docker Networks
+networks:
+  minha-rede:
+    driver: bridge
