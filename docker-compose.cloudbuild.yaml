@@ -37,7 +37,7 @@ services:
       mysql:
         condition: service_healthy
 
-  web:
+  app:
     build: .docker/nginx
     container_name: server
     restart: always
