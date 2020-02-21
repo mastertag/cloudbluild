@@ -23,7 +23,7 @@ steps:
   args:
     - 'exec'
     - '-t'
-    - 'app'
+    - 'php'
     - 'cp'
     - '.env.example'
     - '.env'
