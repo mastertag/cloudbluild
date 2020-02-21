@@ -28,15 +28,15 @@ steps:
     - '.env.example'
     - '.env'
 
-#- id: "Rodando key:generate"
-#  name: "gcr.io/cloud-builders/docker"
-#  args:
-#    - 'exec'
-#    - '-t'
-#    - 'php'
-#    - 'php'
-#    - 'artesan'
-#    - 'key:generate'
+- id: "Rodando key:generate"
+  name: "gcr.io/cloud-builders/docker"
+  args:
+    - 'exec'
+    - '-t'
+    - 'php'
+    - 'php'
+    - 'artisan'
+    - 'key:generate'
 
 - id: "Rodando migrations"
   name: "gcr.io/cloud-builders/docker"
@@ -45,5 +45,16 @@ steps:
     - '-t'
     - 'php'
     - 'php'
-    - 'artesan'
+    - 'artisan'
     - 'migrate'
+
+- id: "Rodando phpunit"
+  name: "gcr.io/cloud-builders/docker"
+  args:
+    - 'exec'
+    - '-t'
+    - 'php'
+    - 'php'
+    - 'vendor/bin/phpunit'
+    - '-c'
+    - 'phpunit.xml'
