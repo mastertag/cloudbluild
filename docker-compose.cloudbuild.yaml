@@ -30,7 +30,7 @@ services:
     restart: always
     tty: true
     volumes:
-      - ./:/var/www/
+      - .:/var/www/
     networks:
       - minha-rede
     depends_on:
@@ -45,7 +45,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./app/:/var/www/
+      - .:/var/www/
     networks:
       - minha-rede
 
