@@ -48,7 +48,7 @@ steps:
     - 'artisan'
     - 'migrate'
 
-- id: "Rodando phpunit"
+- id: "Rodando PHPunit"
   name: "gcr.io/cloud-builders/docker"
   args:
     - 'exec'
